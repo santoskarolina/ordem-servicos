@@ -34,8 +34,8 @@ public class Cliente implements Serializable {
 	private String nome;
 
 	@Column(nullable = false, length = 11)
-    @NotNull(message = "{campo.cpf.obrigatorio}")
-    @CPF(message = "{campo.cpf.invalido}")
+	@NotNull(message = "{campo.cpf.obrigatorio}")
+	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 
 	@Column(name = "data_cadastro")
@@ -45,7 +45,7 @@ public class Cliente implements Serializable {
 	@JsonIgnore
 	@OneToMany
 	private List<ServicoPrestado> servicos = new ArrayList<>();
-	
+
 	public Cliente() {
 	}
 
@@ -102,7 +102,6 @@ public class Cliente implements Serializable {
 		setDataCadastro(LocalDate.now());
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
