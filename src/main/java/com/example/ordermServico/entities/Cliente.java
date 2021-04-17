@@ -2,12 +2,15 @@ package com.example.ordermServico.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Cliente implements Serializable {
@@ -38,6 +42,10 @@ public class Cliente implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro;
 
+	@JsonIgnore
+	@OneToMany
+	private List<ServicoPrestado> servicos = new ArrayList<>();
+	
 	public Cliente() {
 	}
 
@@ -81,11 +89,20 @@ public class Cliente implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
+	public List<ServicoPrestado> getServicos() {
+		return servicos;
+	}
+
+	public void setServicos(List<ServicoPrestado> servicos) {
+		this.servicos = servicos;
+	}
+
 	@PrePersist
 	public void prePersist() {
 		setDataCadastro(LocalDate.now());
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

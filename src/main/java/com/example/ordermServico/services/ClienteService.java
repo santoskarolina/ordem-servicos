@@ -6,10 +6,13 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.repositories.ClienteRepository;
+import com.example.ordermServico.services.exceptions.DatabaseException;
 import com.example.ordermServico.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -34,8 +37,10 @@ public class ClienteService {
 	public void delete(Long id) {
 		try {
 			repository.deleteById(id);
-		}catch(RuntimeException e) {
-			e.printStackTrace();
+		}catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		}catch(DataIntegrityViolationException e) {
+			throw new DatabaseException(e.getMessage());
 		}
 	}
 	
