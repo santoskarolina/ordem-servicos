@@ -6,16 +6,14 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.example.ordermServico.dto.ServicoPrestadoDTO;
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.entities.ServicoPrestado;
 import com.example.ordermServico.repositories.ClienteRepository;
 import com.example.ordermServico.repositories.ServicoPrestadoRepository;
-import com.example.ordermServico.services.exceptinons.ResourceNotFoundException;
+import com.example.ordermServico.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ServicoPrestadoService {
@@ -35,7 +33,7 @@ public class ServicoPrestadoService {
 	
 	public ServicoPrestado findById(Long id) {
 		Optional<ServicoPrestado> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public ServicoPrestado insert(ServicoPrestadoDTO obj) {

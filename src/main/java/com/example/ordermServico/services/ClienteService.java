@@ -6,13 +6,11 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.repositories.ClienteRepository;
-import com.example.ordermServico.services.exceptinons.ResourceNotFoundException;
+import com.example.ordermServico.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ClienteService {
@@ -26,7 +24,7 @@ public class ClienteService {
 	
 	public Cliente findById(Long id) {
 		Optional<Cliente> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Cliente insert(Cliente obj) {
@@ -34,7 +32,11 @@ public class ClienteService {
 	}
 	
 	public void delete(Long id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		}catch(RuntimeException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Cliente update(Long id, Cliente obj) {

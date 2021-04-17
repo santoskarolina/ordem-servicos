@@ -1,11 +1,11 @@
-package com.example.ordermServico.services.exceptinons;
+package com.example.ordermServico.services.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException{
 
 	private static final long serialVersionUID = 1L;
 	
 	public ResourceNotFoundException(Object id) {
-		super("Resource not found. id " + id);
+		super("Usuário não encontrado. id " + id);
 	}
 
 }
