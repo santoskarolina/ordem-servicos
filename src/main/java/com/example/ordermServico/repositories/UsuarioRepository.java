@@ -9,4 +9,7 @@ import com.example.ordermServico.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	
 	Optional<Usuario> findByNome(String nome);
+
+	boolean existsByNome(String nome);
+	
 }

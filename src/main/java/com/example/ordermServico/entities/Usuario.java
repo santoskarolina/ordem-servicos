@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Usuario implements Serializable{
@@ -18,10 +19,11 @@ public class Usuario implements Serializable{
 	private Long id;
 	
 	@Column(unique = true)
+	@NotEmpty(message ="{campo.login.obrigatorio}")
 	private String nome;
 	
-	
 	@Column
+	@NotEmpty(message="{campo.senha.obrigatorio}")
 	private String senha;
 	
 	public Usuario() {
