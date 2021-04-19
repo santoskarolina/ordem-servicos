@@ -16,7 +16,6 @@ import com.example.ordermServico.services.UsuarioService;
 
 @RestController
 @RequestMapping(value="/usuarios")
-@CrossOrigin("http://localhost:4200")
 public class UsuarioResource {
 
 	@Autowired

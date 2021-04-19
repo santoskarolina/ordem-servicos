@@ -21,7 +21,6 @@ import com.example.ordermServico.services.ClienteService;
 
 @RestController
 @RequestMapping(value="/clientes")
-@CrossOrigin("http://localhost:4200")
 public class ClienteResource {
 
 	@Autowired
