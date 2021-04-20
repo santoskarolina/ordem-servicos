@@ -1,4 +1,4 @@
-# :computer: :pushpin: Projeto Banckend Sistema Ordem de Serviços. 
+# :computer: :pushpin:Banckend Sistema Ordem de Serviços. 
 
 #### Um usuário pode adiconar aseu serviços com seus respectivos clientes.
 
@@ -10,7 +10,7 @@
 - JWT para geração de token
 - Oauth para segurança da aplicação
 
-##### :small_blue_diamond: Métodos para entidade usuário:
+##### :small_blue_diamond: Métodos para entidade Usuário:
 - inserir
 
 ##### :small_blue_diamond: Métodos para entidade Clientes:
