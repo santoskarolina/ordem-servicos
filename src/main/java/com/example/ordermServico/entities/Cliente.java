@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -34,7 +33,7 @@ public class Cliente implements Serializable {
 	private String nome;
 
 	@Column(nullable = false, length = 11)
-	@NotNull(message = "{campo.cpf.obrigatorio}")
+	@NotEmpty(message = "{campo.cpf.obrigatorio}")
 	@CPF(message = "{campo.cpf.invalido}")
 	private String cpf;
 

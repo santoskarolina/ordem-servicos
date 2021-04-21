@@ -3,6 +3,8 @@ package com.example.ordermServico.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class ClienteResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Cliente> insert(@RequestBody Cliente obj){
+	public ResponseEntity<Cliente> insert(@RequestBody @Valid Cliente obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
