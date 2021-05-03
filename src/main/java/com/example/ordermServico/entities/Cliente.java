@@ -29,12 +29,12 @@ public class Cliente implements Serializable {
 	private Long id;
 
 	@Column(nullable = false, length = 50)
-	@NotEmpty(message = "{campo.nome.obrigatorio}")
+	@NotEmpty(message = "Nome obrigatório")
 	private String nome;
 
 	@Column(nullable = false, length = 11)
-	@NotEmpty(message = "{campo.cpf.obrigatorio}")
-	@CPF(message = "{campo.cpf.invalido}")
+	@NotEmpty(message = "CPF obrigatório")
+	@CPF(message = "CPF inválido")
 	private String cpf;
 
 	@Column(name = "data_cadastro")
