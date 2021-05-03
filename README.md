@@ -7,8 +7,6 @@
 - Maven como gerenciador de dependências
 - Postman para teste de requisições
 - banco de h2 para testes
-- JWT para geração de token
-- Oauth para segurança da aplicação
 
 ##### :small_blue_diamond: Métodos para entidade Usuário:
 - inserir
