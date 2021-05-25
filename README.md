@@ -1,6 +1,6 @@
 # :computer: :pushpin:Banckend Sistema Ordem de Serviços. 
 
-#### Um usuário pode adiconar aseu serviços com seus respectivos clientes.
+#### Um usuário pode adiconar seus serviços com seus respectivos clientes.
 
 #### :small_blue_diamond: Tecnologias usadas no desenvolvimento:
 - Java no SpringBoot
