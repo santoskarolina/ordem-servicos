@@ -1,17 +1,14 @@
 # :computer: :pushpin:Banckend Sistema Ordem de Serviços. 
 
-#### Um usuário pode adiconar aseu serviços com seus respectivos clientes.
+#### Um usuário pode adiconar seus serviços com seus respectivos clientes.
 
 #### :small_blue_diamond: Tecnologias usadas no desenvolvimento:
 - Java no SpringBoot
 - Maven como gerenciador de dependências
 - Postman para teste de requisições
 - banco de h2 para testes
-- JWT para geração de token
-- Oauth para segurança da aplicação
 
-##### :small_blue_diamond: Métodos para entidade Usuário:
-- inserir
+
 
 ##### :small_blue_diamond: Métodos para entidade Clientes:
 - inserir
