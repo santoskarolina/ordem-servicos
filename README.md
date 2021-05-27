@@ -8,8 +8,7 @@
 - Postman para teste de requisições
 - banco de h2 para testes
 
-##### :small_blue_diamond: Métodos para entidade Usuário:
-- inserir
+
 
 ##### :small_blue_diamond: Métodos para entidade Clientes:
 - inserir
