@@ -1,24 +1,31 @@
 package com.example.ordermServico.dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import com.example.ordermServico.entities.ServicoPrestado;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ServicoPrestadoDTO implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Integer id;
 
+	@NotBlank(message = "Descrição é obrigatória")
+	@NotEmpty(message = "Descrição é obrigatória")
 	private String descricao;
 
-	private Long cliente;
+	private Integer clienteId;
 	
 	private Double valor;
 	
-	private LocalDate data;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date data;
 	
 	public ServicoPrestadoDTO() {
 	}
@@ -27,16 +34,16 @@ public class ServicoPrestadoDTO implements Serializable{
 		super();
 		this.id = obj.getId();
 		this.descricao = obj.getDescricao();
-		this.cliente = obj.getCliente().getId();
+		this.clienteId = obj.getCliente().getId();
 		this.valor = obj.getValor();
 		this.data = obj.getData();
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -48,12 +55,12 @@ public class ServicoPrestadoDTO implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Long getCliente() {
-		return cliente;
+	public Integer getClienteId() {
+		return clienteId;
 	}
 
-	public void setCliente(Long cliente) {
-		this.cliente = cliente;
+	public void setClienteId(Integer clienteId) {
+		this.clienteId = clienteId;
 	}
 
 	public Double getValor() {
@@ -64,11 +71,11 @@ public class ServicoPrestadoDTO implements Serializable{
 		this.valor = valor;
 	}
 
-	public LocalDate getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 }

@@ -1,5 +1,6 @@
 package com.example.ordermServico.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.example.ordermServico.dto.ServicoPrestadoDTO;
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.entities.ServicoPrestado;
-import com.example.ordermServico.repositories.ClienteRepository;
 import com.example.ordermServico.repositories.ServicoPrestadoRepository;
 import com.example.ordermServico.services.exceptions.ResourceNotFoundException;
 
@@ -21,44 +21,35 @@ public class ServicoPrestadoService {
 	@Autowired
 	private ServicoPrestadoRepository repository;
 	
-	@Autowired
-	private ClienteRepository clienteRepository;
-	
-	@Autowired
-	private ClienteService clienteService;
 	
 	public List<ServicoPrestado> findAll(){
 		return repository.findAll();
 	}
 	
-	public ServicoPrestado findById(Long id) {
+	public ServicoPrestado findById(Integer id) {
 		Optional<ServicoPrestado> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public ServicoPrestado insert(ServicoPrestadoDTO obj) {
-		return repository.save(fromDTO(obj));
+	public ServicoPrestado insert(ServicoPrestado obj) {
+		return repository.save(obj);
 	}
 	
-	private ServicoPrestado fromDTO(ServicoPrestadoDTO obj) {
-		ServicoPrestado newObj = new ServicoPrestado();
-		newObj.setId(obj.getId());
-		newObj.setDescricao(obj.getDescricao());
-		newObj.setData(obj.getData());
-		newObj.setValor(obj.getValor());
+	public ServicoPrestado fromDTO(ServicoPrestadoDTO obj) {
+		Cliente client = new Cliente(obj.getClienteId(), null, null, null);
 		
-		Cliente client = clienteService.findById(obj.getCliente());
-		clienteRepository.save(client);
+		ServicoPrestado newService = new ServicoPrestado(null, obj.getDescricao(), client, obj.getValor(),obj.getData());
 		
-		newObj.setCliente(client);
-		return newObj;
+		client.getServicos().addAll(Arrays.asList(newService));
+		newService.setCliente(client);
+		return newService;
 	}
 
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		repository.deleteById(id);
 	}
 	
-	public ServicoPrestado update(Long id, ServicoPrestadoDTO obj) {
+	public ServicoPrestado update(Integer id, ServicoPrestadoDTO obj) {
 		try {
 			ServicoPrestado oldOrder = repository.getOne(id);
 			oldOrder = updateDate(oldOrder, obj);

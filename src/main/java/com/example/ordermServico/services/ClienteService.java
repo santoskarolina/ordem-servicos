@@ -25,7 +25,7 @@ public class ClienteService {
 		return repository.findAll();
 	}
 	
-	public Cliente findById(Long id) {
+	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
@@ -34,7 +34,7 @@ public class ClienteService {
 		return repository.save(obj);
 	}
 	
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		try {
 			repository.deleteById(id);
 		}catch(EmptyResultDataAccessException e) {
@@ -44,7 +44,7 @@ public class ClienteService {
 		}
 	}
 	
-	public Cliente update(Long id, Cliente obj) {
+	public Cliente update(Integer id, Cliente obj) {
 		try {
 			Cliente entity = repository.getOne(id);
 			updateDate(entity, obj);

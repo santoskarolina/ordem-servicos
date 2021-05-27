@@ -8,21 +8,21 @@ public class ValidationError extends StandardError{
 
 	private static final long serialVersionUID = 1L;
 	
-	private List<String> errors = new ArrayList<>();
+	private List<FieldMessage> errors = new ArrayList<>();
 	
 	public ValidationError(Instant timestamp, Integer status, String error, String message, String path) {
 		super(timestamp, status, error, message, path);
 	}
 
-	public List<String> getErrros() {
+	public List<FieldMessage> getErrros() {
 		return errors;
 	}
 
-	public void setErrros(List<String> errors) {
+	public void setErrros(List<FieldMessage> errors) {
 		this.errors = errors;
 	}
 	
-	public void addErros(String message) {
-		errors.add(message);
+	public void addErros(String fieldName, String message) {
+		errors.add(new FieldMessage(fieldName,message));
 	}
 }

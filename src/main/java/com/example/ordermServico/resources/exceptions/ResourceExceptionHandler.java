@@ -42,7 +42,7 @@ public class ResourceExceptionHandler {
 		ValidationError validationErro = new ValidationError(Instant.now(), status.value(), erro, message, request.getRequestURI());
 		
 		for (FieldError x : e.getBindingResult().getFieldErrors()) {
-			validationErro.addErros(x.getDefaultMessage());
+			validationErro.addErros(x.getField(), x.getDefaultMessage());
 		}	
 		return ResponseEntity.status(status).body(validationErro);	
 	}

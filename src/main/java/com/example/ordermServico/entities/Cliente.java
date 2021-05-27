@@ -1,8 +1,8 @@
 package com.example.ordermServico.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -26,10 +27,11 @@ public class Cliente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(nullable = false, length = 50)
 	@NotEmpty(message = "Nome obrigatório")
+	@NotBlank(message = "Nome obrigatório")
 	private String nome;
 
 	@Column(nullable = false, length = 11)
@@ -39,7 +41,7 @@ public class Cliente implements Serializable {
 
 	@Column(name = "data_cadastro")
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataCadastro;
+	private Date dataCadastro;
 
 	@JsonIgnore
 	@OneToMany
@@ -48,7 +50,7 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public Cliente(Long id, String nome, String cpf, LocalDate dataCadastro) {
+	public Cliente(Integer id, String nome, String cpf, Date dataCadastro) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -56,11 +58,11 @@ public class Cliente implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -80,11 +82,11 @@ public class Cliente implements Serializable {
 		this.cpf = cpf;
 	}
 
-	public LocalDate getDataCadastro() {
+	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(LocalDate dataCadastro) {
+	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
@@ -98,7 +100,7 @@ public class Cliente implements Serializable {
 
 	@PrePersist
 	public void prePersist() {
-		setDataCadastro(LocalDate.now());
+		setDataCadastro(new Date());
 	}
 
 	@Override

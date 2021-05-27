@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.ordermServico.dto.ServicoPrestadoDTO;
+import com.example.ordermServico.entities.ServicoPrestado;
 import com.example.ordermServico.services.ServicoPrestadoService;
 
 @RestController
@@ -27,8 +30,9 @@ public class ServicoPrestadoResource {
 	private ServicoPrestadoService service;
 	
 	@GetMapping(value="/{id}")
-	public ResponseEntity<ServicoPrestadoDTO> findById(@PathVariable Long id){
-		return ResponseEntity.ok().body(new ServicoPrestadoDTO(service.findById(id)));
+	public ResponseEntity<ServicoPrestado> findById(@PathVariable Integer id){
+		ServicoPrestado obj = service.findById(id);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	@GetMapping
@@ -38,20 +42,21 @@ public class ServicoPrestadoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ServicoPrestadoDTO> insert(@RequestBody ServicoPrestadoDTO obj){
-		obj = new ServicoPrestadoDTO(service.insert(obj));
+	public ResponseEntity<ServicoPrestadoDTO> insert(@RequestBody @Valid ServicoPrestadoDTO objDto){
+		ServicoPrestado obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id){
+	public ResponseEntity<Void> delete(@PathVariable Integer id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<ServicoPrestadoDTO> update(@PathVariable Long id, @RequestBody ServicoPrestadoDTO obj){
+	public ResponseEntity<ServicoPrestadoDTO> update(@PathVariable Integer id, @RequestBody ServicoPrestadoDTO obj){
 		obj = new ServicoPrestadoDTO(service.update(id, obj));
 		return ResponseEntity.ok().build();
 	}

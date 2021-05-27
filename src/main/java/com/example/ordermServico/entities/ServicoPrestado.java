@@ -1,7 +1,7 @@
 package com.example.ordermServico.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class ServicoPrestado implements Serializable{
 
@@ -18,7 +20,7 @@ public class ServicoPrestado implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	@Column(nullable = false, length = 200)
 	private String descricao;
@@ -31,12 +33,13 @@ public class ServicoPrestado implements Serializable{
 	private Double valor;
 	
 	@Column
-	private LocalDate data;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date data;
 
 	public ServicoPrestado() {
 	}
 	
-	public ServicoPrestado(Long id, String descricao, Cliente cliente, Double valor, LocalDate data) {
+	public ServicoPrestado(Integer id, String descricao, Cliente cliente, Double valor, Date data) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
@@ -44,12 +47,12 @@ public class ServicoPrestado implements Serializable{
 		this.valor = valor;
 		this.data = data;
 	}
-	
-	public Long getId() {
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -76,11 +79,11 @@ public class ServicoPrestado implements Serializable{
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public LocalDate getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(LocalDate data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
