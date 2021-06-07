@@ -3,10 +3,10 @@ package com.example.ordermServico.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import com.example.ordermServico.entities.ServicoPrestado;
+import com.example.ordermServico.entities.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ServicoPrestadoDTO implements Serializable{
@@ -16,7 +16,6 @@ public class ServicoPrestadoDTO implements Serializable{
 	
 	private Integer id;
 
-	@NotBlank(message = "Descrição é obrigatória")
 	@NotEmpty(message = "Descrição é obrigatória")
 	private String descricao;
 
@@ -24,19 +23,27 @@ public class ServicoPrestadoDTO implements Serializable{
 	
 	private Double valor;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date data;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	private Date dataAbertura;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	private Date dataFechamento;
+	
+	private Integer status;
 	
 	public ServicoPrestadoDTO() {
+		super();
 	}
-
+	
 	public ServicoPrestadoDTO(ServicoPrestado obj) {
 		super();
-		this.id = obj.getId();
-		this.descricao = obj.getDescricao();
-		this.clienteId = obj.getCliente().getId();
-		this.valor = obj.getValor();
-		this.data = obj.getData();
+		id = obj.getId();
+		descricao = obj.getDescricao();
+		clienteId = obj.getCliente().getId();
+		valor = obj.getValor();
+		status = obj.getStatus().getCod();
+		dataAbertura = obj.getDataAbertura();
+		dataFechamento = obj.getDataFechamento();
 	}
 
 	public Integer getId() {
@@ -71,11 +78,27 @@ public class ServicoPrestadoDTO implements Serializable{
 		this.valor = valor;
 	}
 
-	public Date getData() {
-		return data;
+	public Date getDataAbertura() {
+		return dataAbertura;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDataAbertura(Date dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public Date getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public void setDataFechamento(Date dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
+
+	public Status getStatus() {
+		return Status.toEnum(this.status);
+	}
+
+	public void setStatus(Status status) {
+		this.status = status.getCod();
 	}
 }

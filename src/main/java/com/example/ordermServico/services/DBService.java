@@ -35,11 +35,11 @@ public class DBService {
 		clienteRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 		
 		
-		ServicoPrestado s1 = new ServicoPrestado(null, "Formatação de notebook", c1, 50.0, sdf.parse("22/07/2020"));
-		ServicoPrestado s2 = new ServicoPrestado(null, "Troca de memoria",c2, 50.00,sdf.parse("10/04/2021"));
-		ServicoPrestado s3 = new ServicoPrestado(null, "Conserto de geladeira", c1, 50.00,sdf.parse("10/04/2021"));
-		ServicoPrestado s4 = new ServicoPrestado(null, "Conserto de Celular",c3, 50.00,sdf.parse("10/04/2021"));
-		ServicoPrestado s5 = new ServicoPrestado(null, "Conserto de Celular",c4, 100.00,sdf.parse("10/04/2021"));
+		ServicoPrestado s1 = new ServicoPrestado(null, "Formatação de notebook", c1, 50.0);
+		ServicoPrestado s2 = new ServicoPrestado(null, "Troca de memoria",c2, 50.00);
+		ServicoPrestado s3 = new ServicoPrestado(null, "Conserto de geladeira", c1, 50.00);
+		ServicoPrestado s4 = new ServicoPrestado(null, "Conserto de Celular",c3, 50.00);
+		ServicoPrestado s5 = new ServicoPrestado(null, "Conserto de Celular",c4, 100.00);
 		servicoRepository.saveAll(Arrays.asList(s1,s2,s3,s4,s5));
 		
 		

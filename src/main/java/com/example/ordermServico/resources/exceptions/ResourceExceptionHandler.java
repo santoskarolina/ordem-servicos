@@ -36,14 +36,14 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request){
 		String erro = "Erro da validação";
-		String message = "Campos incorretos";
-		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+		String messagem = "Campos incorretos";
+		HttpStatus status = HttpStatus.BAD_REQUEST;
 		
-		ValidationError validationErro = new ValidationError(Instant.now(), status.value(), erro, message, request.getRequestURI());
+		ValidationError err = new ValidationError(Instant.now(), status.value(), erro, messagem, request.getRequestURI());
 		
 		for (FieldError x : e.getBindingResult().getFieldErrors()) {
-			validationErro.addErros(x.getField(), x.getDefaultMessage());
+			err.addErros(x.getField(), x.getDefaultMessage());
 		}	
-		return ResponseEntity.status(status).body(validationErro);	
+		return ResponseEntity.status(status).body(err);	
 	}
 }

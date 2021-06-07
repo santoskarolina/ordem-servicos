@@ -10,7 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
+import com.example.ordermServico.entities.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -33,19 +35,24 @@ public class ServicoPrestado implements Serializable{
 	private Double valor;
 	
 	@Column
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date data;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	private Date dataAbertura;
+	
+	@Column
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	private Date dataFechamento;
+	
+	private Integer status;
 
 	public ServicoPrestado() {
 	}
 	
-	public ServicoPrestado(Integer id, String descricao, Cliente cliente, Double valor, Date data) {
+	public ServicoPrestado(Integer id, String descricao, Cliente cliente, Double valor) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.cliente = cliente;
 		this.valor = valor;
-		this.data = data;
 	}
 
 	public Integer getId() {
@@ -79,12 +86,35 @@ public class ServicoPrestado implements Serializable{
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
-	public Date getData() {
-		return data;
+	
+	public Date getDataAbertura() {
+		return dataAbertura;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setDataAbertura(Date dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public Date getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public void setDataFechamento(Date dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
+
+	public Status getStatus() {
+		return Status.toEnum(status);
+	}
+
+	public void setStatus(Status status) {
+		this.status = status.getCod();
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		setDataAbertura(new Date());
+		setStatus(Status.ABERTO);
 	}
 
 	@Override

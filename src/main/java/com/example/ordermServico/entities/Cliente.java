@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -31,7 +30,6 @@ public class Cliente implements Serializable {
 
 	@Column(nullable = false, length = 50)
 	@NotEmpty(message = "Nome obrigatório")
-	@NotBlank(message = "Nome obrigatório")
 	private String nome;
 
 	@Column(nullable = false, length = 11)

@@ -10,6 +10,9 @@ public class ValidationError extends StandardError{
 	
 	private List<FieldMessage> errors = new ArrayList<>();
 	
+	public ValidationError() {
+	}
+	
 	public ValidationError(Instant timestamp, Integer status, String error, String message, String path) {
 		super(timestamp, status, error, message, path);
 	}
@@ -22,7 +25,7 @@ public class ValidationError extends StandardError{
 		this.errors = errors;
 	}
 	
-	public void addErros(String fieldName, String message) {
-		errors.add(new FieldMessage(fieldName,message));
+	public void addErros(String fieldName, String mensagem) {
+		errors.add(new FieldMessage(fieldName,mensagem));
 	}
 }

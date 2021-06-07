@@ -37,7 +37,8 @@ public class ServicoPrestadoResource {
 	
 	@GetMapping
 	public ResponseEntity<List<ServicoPrestadoDTO>> findAll(){
-		List<ServicoPrestadoDTO> listDto = service.findAll().stream().map(x -> new ServicoPrestadoDTO(x)).collect(Collectors.toList());
+		List<ServicoPrestado> list = service.findAll();
+		List<ServicoPrestadoDTO> listDto = list.stream().map(x -> new ServicoPrestadoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
@@ -55,9 +56,11 @@ public class ServicoPrestadoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@SuppressWarnings("unused")
 	@PutMapping(value="/{id}")
-	public ResponseEntity<ServicoPrestadoDTO> update(@PathVariable Integer id, @RequestBody ServicoPrestadoDTO obj){
-		obj = new ServicoPrestadoDTO(service.update(id, obj));
+	public ResponseEntity<ServicoPrestadoDTO> update(@PathVariable Integer id, @RequestBody ServicoPrestadoDTO objDto){
+		ServicoPrestado obj = service.fromDTO(objDto);
+		obj = service.update(id, objDto);
 		return ResponseEntity.ok().build();
 	}
 }

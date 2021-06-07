@@ -8,15 +8,15 @@ public class FieldMessage implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String fieldName;
-	private String message;
+	private String mensagem;
 	
 	public FieldMessage() {
 	}
 
-	public FieldMessage(String fieldName, String message) {
+	public FieldMessage(String fieldName, String mensagem) {
 		super();
 		this.fieldName = fieldName;
-		this.message = message;
+		this.mensagem = mensagem;
 	}
 
 	public String getFieldName() {
@@ -27,11 +27,11 @@ public class FieldMessage implements Serializable{
 		this.fieldName = fieldName;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getMensagem() {
+		return mensagem;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 }
