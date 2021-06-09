@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.ordermServico.dto.ServicoPrestadoDTO;
+import com.example.ordermServico.dto.ServicoPrestadoNewDTO;
 import com.example.ordermServico.entities.ServicoPrestado;
 import com.example.ordermServico.services.ServicoPrestadoService;
 
@@ -41,9 +42,8 @@ public class ServicoPrestadoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ServicoPrestadoDTO> insert(@RequestBody @Valid ServicoPrestadoDTO objDto){
-		ServicoPrestado obj = service.fromDTO(objDto);
-		obj = service.insert(obj);
+	public ResponseEntity<ServicoPrestadoNewDTO> insert(@Valid @RequestBody ServicoPrestadoNewDTO objdto){
+		ServicoPrestado obj  = service.insert(objdto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
@@ -55,7 +55,7 @@ public class ServicoPrestadoResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<ServicoPrestado> update(@PathVariable Integer id, @Valid @RequestBody ServicoPrestadoDTO objDto){
+	public ResponseEntity<ServicoPrestado> update(@PathVariable Integer id, @Valid @RequestBody ServicoPrestadoNewDTO objDto){
 		ServicoPrestado obj = service.fromDTO(objDto);
 		obj = service.update(id, objDto);
 		return ResponseEntity.ok().body(obj);

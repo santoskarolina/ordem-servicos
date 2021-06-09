@@ -35,7 +35,7 @@ public class Cliente implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataCadastro;
 
-	@Column(nullable = false, length = 50)
+	@Column(nullable = false)
 	private String telefone;
 	
 	@JsonIgnore

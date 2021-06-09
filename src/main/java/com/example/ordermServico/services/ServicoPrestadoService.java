@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ordermServico.dto.ServicoPrestadoDTO;
+import com.example.ordermServico.dto.ServicoPrestadoNewDTO;
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.entities.ServicoPrestado;
 import com.example.ordermServico.entities.enums.Status;
@@ -34,7 +35,8 @@ public class ServicoPrestadoService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
-	public ServicoPrestado insert(ServicoPrestado obj) {
+	public ServicoPrestado insert(ServicoPrestadoNewDTO objdto) {
+		ServicoPrestado obj = fromDTO(objdto);
 		return repository.save(obj);
 	}
 
@@ -42,7 +44,7 @@ public class ServicoPrestadoService {
 		repository.deleteById(id);
 	}
 
-	public ServicoPrestado update(Integer id, ServicoPrestadoDTO obj) {
+	public ServicoPrestado update(Integer id, ServicoPrestadoNewDTO obj) {
 		try {
 			ServicoPrestado oldObj = repository.getOne(id);
 			updateDate(obj,oldObj);
@@ -53,7 +55,7 @@ public class ServicoPrestadoService {
 	}
 
 	// transformar um dto em uma entity
-	public ServicoPrestado fromDTO(ServicoPrestadoDTO obj) {
+	public ServicoPrestado fromDTO(ServicoPrestadoNewDTO obj) {
 		Cliente client = new Cliente(obj.getClienteId(), null, null, null, null);
 
 		ServicoPrestado newService = new ServicoPrestado(null, obj.getDescricao(), client, obj.getValor());
@@ -63,7 +65,7 @@ public class ServicoPrestadoService {
 	}
 
 	// atualizar os dados do servico
-	public ServicoPrestado updateDate(ServicoPrestadoDTO newobj, ServicoPrestado oldOrder) {
+	public ServicoPrestado updateDate(ServicoPrestadoNewDTO newobj, ServicoPrestado oldOrder) {
 		oldOrder.setDescricao(newobj.getDescricao());
 		oldOrder.setValor(newobj.getValor());
 		oldOrder.setStatus(newobj.getStatus());

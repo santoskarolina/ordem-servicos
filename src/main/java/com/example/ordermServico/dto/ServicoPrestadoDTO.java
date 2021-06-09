@@ -1,13 +1,9 @@
 package com.example.ordermServico.dto;
 
 import java.io.Serializable;
-import java.util.Date;
-
-import javax.validation.constraints.NotEmpty;
 
 import com.example.ordermServico.entities.ServicoPrestado;
 import com.example.ordermServico.entities.enums.Status;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ServicoPrestadoDTO implements Serializable{
 
@@ -15,20 +11,8 @@ public class ServicoPrestadoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-
-	@NotEmpty(message = "Descrição é obrigatória")
 	private String descricao;
-
 	private Integer clienteId;
-	
-	private Double valor;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date dataAbertura;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date dataFechamento;
-	
 	private Integer status;
 	
 	public ServicoPrestadoDTO() {
@@ -40,10 +24,7 @@ public class ServicoPrestadoDTO implements Serializable{
 		id = obj.getId();
 		descricao = obj.getDescricao();
 		clienteId = obj.getCliente().getId();
-		valor = obj.getValor();
 		status = obj.getStatus().getCod();
-		dataAbertura = obj.getDataAbertura();
-		dataFechamento = obj.getDataFechamento();
 	}
 
 	public Integer getId() {
@@ -68,30 +49,6 @@ public class ServicoPrestadoDTO implements Serializable{
 
 	public void setClienteId(Integer clienteId) {
 		this.clienteId = clienteId;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
-
-	public Date getDataAbertura() {
-		return dataAbertura;
-	}
-
-	public void setDataAbertura(Date dataAbertura) {
-		this.dataAbertura = dataAbertura;
-	}
-
-	public Date getDataFechamento() {
-		return dataFechamento;
-	}
-
-	public void setDataFechamento(Date dataFechamento) {
-		this.dataFechamento = dataFechamento;
 	}
 
 	public Status getStatus() {

@@ -12,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.ordermServico.dto.ClienteDTO;
+import com.example.ordermServico.dto.ClienteNewDTO;
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.repositories.ClienteRepository;
 import com.example.ordermServico.services.exceptions.DatabaseException;
@@ -34,7 +35,7 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public Cliente insert(ClienteDTO objdto) {
+	public Cliente insert(ClienteNewDTO objdto) {
 		Cliente obj = fromDTO(objdto);
 		return repository.save(obj);
 	}
@@ -49,7 +50,7 @@ public class ClienteService {
 		}
 	}
 	
-	public Cliente update(Integer id, ClienteDTO obj) {
+	public Cliente update(Integer id, ClienteNewDTO obj) {
 		try {
 			Cliente entity = repository.getOne(id);
 			updateDate(obj, entity);
@@ -59,12 +60,12 @@ public class ClienteService {
 		}
 	}
 	
-	public Cliente fromDTO(ClienteDTO objdto) {
+	public Cliente fromDTO(ClienteNewDTO objdto) {
 		Cliente obj = new Cliente(null, objdto.getNome(), objdto.getCpf(), objdto.getDataCadastro(), objdto.getTelefone());
 		return obj;
 	}
 
-	private void updateDate(ClienteDTO newobj, Cliente oldobj) {
+	private void updateDate(ClienteNewDTO newobj, Cliente oldobj) {
 		oldobj.setNome(newobj.getNome());
 		oldobj.setCpf(newobj.getCpf());
 		oldobj.setTelefone(newobj.getTelefone());
