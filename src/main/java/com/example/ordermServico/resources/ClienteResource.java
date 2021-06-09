@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.example.ordermServico.dto.ClienteDTO;
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.services.ClienteService;
 
@@ -34,16 +35,16 @@ public class ClienteResource {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Cliente>> findAll(){
-		List<Cliente> obj = service.findAll();
+	public ResponseEntity<List<ClienteDTO>> findAll(){
+		List<ClienteDTO> obj = service.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Cliente> insert(@RequestBody @Valid Cliente obj){
-		obj = service.insert(obj);
+	public ResponseEntity<ClienteDTO> insert(@Valid @RequestBody ClienteDTO objdto){
+		Cliente obj  = service.insert(objdto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).body(obj);
+		return ResponseEntity.created(uri).build();
 	}
 	
 	@DeleteMapping(value="/{id}")
@@ -53,8 +54,9 @@ public class ClienteResource {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Cliente> update(@PathVariable Integer id, @RequestBody Cliente obj){
-		obj = service.update(id, obj);
+	public ResponseEntity<Cliente> update(@PathVariable Integer id, @RequestBody ClienteDTO objdto){
+		Cliente obj = service.fromDTO(objdto);
+		obj = service.update(id, objdto);
 		return ResponseEntity.ok().body(obj);
 	}
 }

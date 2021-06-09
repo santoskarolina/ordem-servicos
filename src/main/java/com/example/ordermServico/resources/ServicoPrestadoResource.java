@@ -2,7 +2,6 @@ package com.example.ordermServico.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -37,9 +36,8 @@ public class ServicoPrestadoResource {
 	
 	@GetMapping
 	public ResponseEntity<List<ServicoPrestadoDTO>> findAll(){
-		List<ServicoPrestado> list = service.findAll();
-		List<ServicoPrestadoDTO> listDto = list.stream().map(x -> new ServicoPrestadoDTO(x)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
+		List<ServicoPrestadoDTO> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 	
 	@PostMapping
@@ -56,11 +54,10 @@ public class ServicoPrestadoResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@SuppressWarnings("unused")
 	@PutMapping(value="/{id}")
-	public ResponseEntity<ServicoPrestadoDTO> update(@PathVariable Integer id, @RequestBody ServicoPrestadoDTO objDto){
+	public ResponseEntity<ServicoPrestado> update(@PathVariable Integer id, @Valid @RequestBody ServicoPrestadoDTO objDto){
 		ServicoPrestado obj = service.fromDTO(objDto);
 		obj = service.update(id, objDto);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok().body(obj);
 	}
 }

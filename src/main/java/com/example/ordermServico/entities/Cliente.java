@@ -12,9 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -29,18 +26,18 @@ public class Cliente implements Serializable {
 	private Integer id;
 
 	@Column(nullable = false, length = 50)
-	@NotEmpty(message = "Nome obrigatório")
 	private String nome;
 
 	@Column(nullable = false, length = 11)
-	@NotEmpty(message = "CPF obrigatório")
-	@CPF(message = "CPF inválido")
 	private String cpf;
 
 	@Column(name = "data_cadastro")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataCadastro;
 
+	@Column(nullable = false, length = 50)
+	private String telefone;
+	
 	@JsonIgnore
 	@OneToMany
 	private List<ServicoPrestado> servicos = new ArrayList<>();
@@ -48,12 +45,13 @@ public class Cliente implements Serializable {
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String cpf, Date dataCadastro) {
+	public Cliente(Integer id, String nome, String cpf, Date dataCadastro, String telefone) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataCadastro = dataCadastro;
+		this.telefone = telefone;
 	}
 
 	public Integer getId() {
@@ -94,6 +92,14 @@ public class Cliente implements Serializable {
 
 	public void setServicos(List<ServicoPrestado> servicos) {
 		this.servicos = servicos;
+	}
+	
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	@PrePersist

@@ -3,6 +3,7 @@ package com.example.ordermServico.services;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -22,8 +23,10 @@ public class ServicoPrestadoService {
 	@Autowired
 	private ServicoPrestadoRepository repository;
 
-	public List<ServicoPrestado> findAll() {
-		return repository.findAll();
+	public List<ServicoPrestadoDTO> findAll() {
+		List<ServicoPrestado> list = repository.findAll();
+		List<ServicoPrestadoDTO> dto = list.stream().map(x -> new ServicoPrestadoDTO(x)).collect(Collectors.toList());
+		return dto;
 	}
 
 	public ServicoPrestado findById(Integer id) {
@@ -51,7 +54,7 @@ public class ServicoPrestadoService {
 
 	// transformar um dto em uma entity
 	public ServicoPrestado fromDTO(ServicoPrestadoDTO obj) {
-		Cliente client = new Cliente(obj.getClienteId(), null, null, null);
+		Cliente client = new Cliente(obj.getClienteId(), null, null, null, null);
 
 		ServicoPrestado newService = new ServicoPrestado(null, obj.getDescricao(), client, obj.getValor());
 		client.getServicos().add(newService);
@@ -67,6 +70,8 @@ public class ServicoPrestadoService {
 		
 		if(newobj.getStatus().equals(Status.FINALIZADO)) {
 			oldOrder.setDataFechamento(new Date());
+		}else {
+			oldOrder.setDataFechamento(null);
 		}
 		return oldOrder;
 	}

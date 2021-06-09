@@ -2,6 +2,7 @@ package com.example.ordermServico.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -10,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.ordermServico.dto.ClienteDTO;
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.repositories.ClienteRepository;
 import com.example.ordermServico.services.exceptions.DatabaseException;
@@ -21,8 +23,10 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repository;
 
-	public List<Cliente> findAll(){
-		return repository.findAll();
+	public List<ClienteDTO> findAll(){
+		List<Cliente> list = repository.findAll();
+		List<ClienteDTO> dto = list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
+		return dto;
 	}
 	
 	public Cliente findById(Integer id) {
@@ -30,7 +34,8 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
-	public Cliente insert(Cliente obj) {
+	public Cliente insert(ClienteDTO objdto) {
+		Cliente obj = fromDTO(objdto);
 		return repository.save(obj);
 	}
 	
@@ -44,18 +49,24 @@ public class ClienteService {
 		}
 	}
 	
-	public Cliente update(Integer id, Cliente obj) {
+	public Cliente update(Integer id, ClienteDTO obj) {
 		try {
 			Cliente entity = repository.getOne(id);
-			updateDate(entity, obj);
+			updateDate(obj, entity);
 			return repository.save(entity);
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 	}
+	
+	public Cliente fromDTO(ClienteDTO objdto) {
+		Cliente obj = new Cliente(null, objdto.getNome(), objdto.getCpf(), objdto.getDataCadastro(), objdto.getTelefone());
+		return obj;
+	}
 
-	private void updateDate(Cliente entity, Cliente obj) {
-		entity.setNome(obj.getNome());
-		entity.setCpf(obj.getCpf());
+	private void updateDate(ClienteDTO newobj, Cliente oldobj) {
+		oldobj.setNome(newobj.getNome());
+		oldobj.setCpf(newobj.getCpf());
+		oldobj.setTelefone(newobj.getTelefone());
 	}
 }
