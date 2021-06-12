@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.ordermServico.dto.ServicoPrestadoDTO;
@@ -16,6 +18,7 @@ import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.entities.ServicoPrestado;
 import com.example.ordermServico.entities.enums.Status;
 import com.example.ordermServico.repositories.ServicoPrestadoRepository;
+import com.example.ordermServico.services.exceptions.DatabaseException;
 import com.example.ordermServico.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -41,7 +44,13 @@ public class ServicoPrestadoService {
 	}
 
 	public void delete(Integer id) {
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		}catch(ConstraintViolationException e) {
+			throw new DatabaseException("Serviço possui cliente associado");
+		}catch(DataIntegrityViolationException e) {
+			throw new DatabaseException("Serviços possui clientes");
+		}
 	}
 
 	public ServicoPrestado update(Integer id, ServicoPrestadoNewDTO obj) {

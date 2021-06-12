@@ -29,7 +29,7 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> dataBase(DatabaseException e, HttpServletRequest request){
 		String error = "DataBase error";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
-		StandardError err = new StandardError(Instant.now(), status.value(), error,"Cliente possui serviço associados", request.getRequestURI());
+		StandardError err = new StandardError(Instant.now(), status.value(), error,e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(status).body(err);
 	}
 	

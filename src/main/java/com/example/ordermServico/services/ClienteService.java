@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.ordermServico.dto.ClienteDTO;
@@ -43,10 +43,10 @@ public class ClienteService {
 	public void delete(Integer id) {
 		try {
 			repository.deleteById(id);
-		}catch(EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException(id);
+		}catch(ConstraintViolationException e) {
+			throw new DatabaseException("Cliente possui serviços");
 		}catch(DataIntegrityViolationException e) {
-			throw new DatabaseException(e.getMessage());
+			throw new DatabaseException("Cliente possui serviços");
 		}
 	}
 	
