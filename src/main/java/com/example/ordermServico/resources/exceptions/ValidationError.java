@@ -17,11 +17,11 @@ public class ValidationError extends StandardError{
 		super(timestamp, status, error, message, path);
 	}
 
-	public List<FieldMessage> getErrros() {
+	public List<FieldMessage> getErros() {
 		return errors;
 	}
 
-	public void setErrros(List<FieldMessage> errors) {
+	public void setErros(List<FieldMessage> errors) {
 		this.errors = errors;
 	}
 	

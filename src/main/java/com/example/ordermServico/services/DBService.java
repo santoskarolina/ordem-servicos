@@ -32,8 +32,7 @@ public class DBService {
 		Cliente c2 = new Cliente(null, "João Carlos", "61801405379", sdf.parse("10/04/2021"), "321654987");
 		Cliente c3 = new Cliente(null, "Mary Santos", "67025846368", sdf.parse("10/04/2021"), "321654987");
 		Cliente c4 = new Cliente(null, "Carlos Alberto", "86267183300", sdf.parse("10/04/2021"), "321654897");
-		Cliente c5 = new Cliente(null, "Carlos Alberto", "86267183300", sdf.parse("10/04/2021"), "321654897");
-		clienteRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5));
+		clienteRepository.saveAll(Arrays.asList(c1,c2,c3,c4));
 		
 		
 		ServicoPrestado s1 = new ServicoPrestado(null, "Formatação de notebook", c1, 50.0);
