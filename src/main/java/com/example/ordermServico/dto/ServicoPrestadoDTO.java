@@ -12,7 +12,7 @@ public class ServicoPrestadoDTO implements Serializable{
 	
 	private Integer id;
 	private String descricao;
-	private Integer clienteId;
+	private Integer cliente;
 	private Integer status;
 	
 	public ServicoPrestadoDTO() {
@@ -23,7 +23,7 @@ public class ServicoPrestadoDTO implements Serializable{
 		super();
 		id = obj.getId();
 		descricao = obj.getDescricao();
-		clienteId = obj.getCliente().getId();
+		cliente = obj.getCliente().getId();
 		status = obj.getStatus().getCod();
 	}
 
@@ -43,12 +43,12 @@ public class ServicoPrestadoDTO implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Integer getClienteId() {
-		return clienteId;
+	public Integer getCliente() {
+		return cliente;
 	}
 
-	public void setClienteId(Integer clienteId) {
-		this.clienteId = clienteId;
+	public void setCliente(Integer cliente) {
+		this.cliente = cliente;
 	}
 
 	public Status getStatus() {

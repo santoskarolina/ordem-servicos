@@ -19,7 +19,7 @@ public class ServicoPrestadoNewDTO implements Serializable{
 	@NotEmpty(message = "Descrição é obrigatória")
 	private String descricao;
 
-	private Integer clienteId;
+	private Integer cliente;
 	
 	private Double valor;
 	
@@ -39,7 +39,7 @@ public class ServicoPrestadoNewDTO implements Serializable{
 		super();
 		id = obj.getId();
 		descricao = obj.getDescricao();
-		clienteId = obj.getCliente().getId();
+		cliente = obj.getCliente().getId();
 		valor = obj.getValor();
 		status = obj.getStatus().getCod();
 		dataAbertura = obj.getDataAbertura();
@@ -62,12 +62,12 @@ public class ServicoPrestadoNewDTO implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Integer getClienteId() {
-		return clienteId;
+	public Integer getCliente() {
+		return cliente;
 	}
 
-	public void setClienteId(Integer clienteId) {
-		this.clienteId = clienteId;
+	public void setCliente(Integer clienteId) {
+		this.cliente = clienteId;
 	}
 
 	public Double getValor() {

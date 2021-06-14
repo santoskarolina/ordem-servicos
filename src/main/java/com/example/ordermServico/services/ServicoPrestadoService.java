@@ -65,7 +65,7 @@ public class ServicoPrestadoService {
 
 	// transformar um dto em uma entity
 	public ServicoPrestado fromDTO(ServicoPrestadoNewDTO obj) {
-		Cliente client = new Cliente(obj.getClienteId(), null, null, null, null);
+		Cliente client = new Cliente(obj.getCliente(), null, null, null, null);
 
 		ServicoPrestado newService = new ServicoPrestado(null, obj.getDescricao(), client, obj.getValor());
 		client.getServicos().add(newService);
