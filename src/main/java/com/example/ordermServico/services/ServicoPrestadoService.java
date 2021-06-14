@@ -26,6 +26,9 @@ public class ServicoPrestadoService {
 
 	@Autowired
 	private ServicoPrestadoRepository repository;
+	
+	@Autowired
+	private ClienteService clienteService;
 
 	public List<ServicoPrestadoDTO> findAll() {
 		List<ServicoPrestado> list = repository.findAll();
@@ -78,6 +81,7 @@ public class ServicoPrestadoService {
 		oldOrder.setDescricao(newobj.getDescricao());
 		oldOrder.setValor(newobj.getValor());
 		oldOrder.setStatus(newobj.getStatus());
+		oldOrder.setCliente(clienteService.findById(newobj.getCliente()));
 		
 		if(newobj.getStatus().equals(Status.FINALIZADO)) {
 			oldOrder.setDataFechamento(new Date());
