@@ -19,7 +19,7 @@
 
 ##### :small_blue_diamond: Métodos para entidade Serviços:
 - inserir
-- deletar
+- deletar (se não houver cliente associado)
 - encontrar todos
 - encontrar pelo ID
 - atualizar
