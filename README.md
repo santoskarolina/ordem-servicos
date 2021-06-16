@@ -7,8 +7,8 @@
 - Maven como gerenciador de dependências
 - Postman para teste de requisições
 - banco de h2 para testes
-
-
+- banco postgresql para desenvolvimento e produção
+- deploy da api no Heroku
 
 ##### :small_blue_diamond: Métodos para entidade Clientes:
 - inserir
@@ -23,8 +23,6 @@
 - encontrar todos
 - encontrar pelo ID
 - atualizar
-
-
 
 #### :small_blue_diamond: Modelo de camadas
 ![DOMAIN MODEL](https://github.com/anna104016/html/blob/main/estrutura%20de%20camadas01.png)
