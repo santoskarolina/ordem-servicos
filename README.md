@@ -24,5 +24,31 @@
 - encontrar pelo ID
 - atualizar
 
+##### Endpionts
+
+#### retornar todos os clientes
+
+```http
+  GET /clientes
+```
+
+#### retornar um cliente por id
+```http
+  GET /clientes/${id}
+```
+
+#### inserir um novo serviço
+```http
+  POST /servicos
+```
+
+```http
+  {
+    "descricao": "Formatar notebook",
+    "clienteId": 1,
+    "valor": 1160.0
+  }
+```
+
 #### :small_blue_diamond: Modelo de camadas
 ![DOMAIN MODEL](https://github.com/anna104016/html/blob/main/estrutura%20de%20camadas01.png)
