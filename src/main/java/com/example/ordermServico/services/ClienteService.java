@@ -64,10 +64,13 @@ public class ClienteService {
 		Cliente obj = new Cliente(null, objdto.getNome(), objdto.getCpf(), objdto.getDataCadastro(), objdto.getTelefone());
 		return obj;
 	}
+	
 
 	private void updateDate(ClienteNewDTO newobj, Cliente oldobj) {
 		oldobj.setNome(newobj.getNome());
 		oldobj.setCpf(newobj.getCpf());
 		oldobj.setTelefone(newobj.getTelefone());
 	}
+	
+	
 }
