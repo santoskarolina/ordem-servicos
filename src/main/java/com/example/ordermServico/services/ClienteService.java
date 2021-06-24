@@ -2,7 +2,6 @@ package com.example.ordermServico.services;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.example.ordermServico.dto.ClienteDTO;
 import com.example.ordermServico.dto.ClienteNewDTO;
 import com.example.ordermServico.entities.Cliente;
 import com.example.ordermServico.repositories.ClienteRepository;
@@ -24,10 +22,9 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repository;
 
-	public List<ClienteDTO> findAll(){
+	public List<Cliente> findAll(){
 		List<Cliente> list = repository.findAll();
-		List<ClienteDTO> dto = list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
-		return dto;
+		return list;
 	}
 	
 	public Cliente findById(Integer id) {

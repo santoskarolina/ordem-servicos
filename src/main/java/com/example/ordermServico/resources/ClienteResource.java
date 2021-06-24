@@ -2,6 +2,7 @@ package com.example.ordermServico.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -37,8 +38,9 @@ public class ClienteResource {
 	
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> findAll(){
-		List<ClienteDTO> obj = service.findAll();
-		return ResponseEntity.ok().body(obj);
+		List<Cliente> list = service.findAll();
+		List<ClienteDTO> dto = list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(dto);
 	}
 	
 	@PostMapping
